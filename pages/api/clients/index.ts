@@ -31,6 +31,14 @@ export default async function handler(
 
   if (method === "GET") {
     try {
+      const { username } = query;
+
+      if (username) {
+        const clients = await Client.find({ username });
+
+        res.status(200).json({ data: clients, error: null });
+      }
+
       const clients = await Client.find();
 
       res.status(200).json({ data: clients, error: null });
