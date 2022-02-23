@@ -8,6 +8,7 @@ const Schema = new mongoose.Schema({
   country: String,
   postalCode: String,
   fiscalNumber: String,
+  username: String,
 });
 
 const Client = mongoose.models.Client || mongoose.model("Client", Schema);

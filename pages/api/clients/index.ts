@@ -16,7 +16,9 @@ export default async function handler(
 
   if (method === "POST") {
     try {
-      const hasClient = await Client.findOne({ name: body.name });
+      const hasClient = await Client.findOne({ username: body.username }).where(
+        { name: body.name }
+      );
       if (hasClient) throw new Error("Client with this name already exists");
 
       const newClient = await Client.create(body);
