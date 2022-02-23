@@ -8,6 +8,14 @@ export default async function handler(
 ) {
   const { body, headers, query, method } = req;
 
+  const { api_key } = headers;
+  if (!api_key) {
+    return res.status(401).json({ data: "No API_KEY provided", error: null });
+  }
+  if (api_key !== process.env.API_KEY) {
+    return res.status(401).json({ data: "Invalid API_KEY", error: null });
+  }
+
   db()
     .then(() => {})
     .catch(() => {
