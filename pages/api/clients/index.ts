@@ -23,9 +23,9 @@ export default async function handler(
 
       const newClient = await Client.create(body);
 
-      res.status(201).json({ data: newClient, error: null });
+      return res.status(201).json({ data: newClient, error: null });
     } catch (error: any) {
-      res.status(400).json({ data: null, error: error.message });
+      return res.status(400).json({ data: null, error: error.message });
     }
   }
 
@@ -36,16 +36,16 @@ export default async function handler(
       if (username) {
         const clients = await Client.find({ username });
 
-        res.status(200).json({ data: clients, error: null });
+        return res.status(200).json({ data: clients, error: null });
       }
 
       const clients = await Client.find();
 
-      res.status(200).json({ data: clients, error: null });
+      return res.status(200).json({ data: clients, error: null });
     } catch (error: any) {
-      res.status(400).json({ data: null, error: error.message });
+      return res.status(400).json({ data: null, error: error.message });
     }
   }
 
-  res.status(500).json({ data: null, error: "Method not allowed" });
+  return res.status(500).json({ data: null, error: "Method not allowed" });
 }

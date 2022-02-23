@@ -20,12 +20,14 @@ export default async function handler(
 
       const deletedClient = await Client.findByIdAndDelete(id);
       if (!deletedClient) {
-        res.status(404).json({ data: null, error: "Client does not exist" });
+        return res
+          .status(404)
+          .json({ data: null, error: "Client does not exist" });
       }
 
-      res.status(200).json({ data: deletedClient, error: null });
+      return res.status(200).json({ data: deletedClient, error: null });
     } catch (error: any) {
-      res.status(400).json({ data: null, error: error.message });
+      return res.status(400).json({ data: null, error: error.message });
     }
   }
 
@@ -35,10 +37,12 @@ export default async function handler(
 
       const client = await Client.findById(id);
       if (!client) {
-        res.status(404).json({ data: null, error: "Client does not exist" });
+        return res
+          .status(404)
+          .json({ data: null, error: "Client does not exist" });
       }
 
-      res.status(200).json({ data: client, error: null });
+      return res.status(200).json({ data: client, error: null });
     } catch (error: any) {
       res.status(400).json({ data: null, error: error.message });
     }
@@ -52,7 +56,7 @@ export default async function handler(
         name: body.name,
       });
       if (hasName) {
-        res.status(403).json({
+        return res.status(403).json({
           data: null,
           error: "Client with this name already exists",
         });
@@ -62,14 +66,16 @@ export default async function handler(
         new: true,
       });
       if (!updatedClient) {
-        res.status(404).json({ data: null, error: "Client does not exist" });
+        return res
+          .status(404)
+          .json({ data: null, error: "Client does not exist" });
       }
 
-      res.status(200).json({ data: updatedClient, error: null });
+      return res.status(200).json({ data: updatedClient, error: null });
     } catch (error: any) {
-      res.status(400).json({ data: null, error: error.message });
+      return res.status(400).json({ data: null, error: error.message });
     }
   }
 
-  res.status(500).json({ data: null, error: "Method not allowed" });
+  return res.status(500).json({ data: null, error: "Method not allowed" });
 }
